@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@activitypods/app-manifest@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@activitypods/app-manifest/-/app-manifest-2.3.2.tgz#7236a25a073ee067f5233f2afd0635e13cf3f9cd"
+  integrity sha512-ts+HjGxuTcGtmlNdbuMsBU6HFrKEkl2YQdGaQG5WaJGsdrjyn0HY0aN4PkBSVHsVEg8jpVquEPG+mpbz/O1z5g==
+
 "@activitypods/refine-antd@^2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@activitypods/refine-antd/-/refine-antd-2.3.2.tgz#6aaabc9826bdd4952e3faa2d4ffb4e87a619b561"

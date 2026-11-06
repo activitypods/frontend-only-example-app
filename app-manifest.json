@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/@activitypods/app-manifest/schema.json",
+  "name": "Refine ActivityPods example",
+  "description": "Example Refine app for managing as:Note resources on ActivityPods",
+  "accessNeeds": {
+    "required": [
+      {
+        "shapeTreeUri": "https://shapes.activitypods.org/shapetrees/as/Note",
+        "accessMode": [
+          "acl:Read",
+          "acl:Write"
+        ]
+      },
+      {
+        "shapeTreeUri": "https://shapes.activitypods.org/shapetrees/as/Profile",
+        "accessMode": "acl:Read"
+      }
+    ],
+    "optional": []
+  }
+}

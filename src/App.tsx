@@ -1,7 +1,7 @@
 import { Refine, Authenticated } from "@refinedev/core";
 import { useNotificationProvider, ThemedLayout, ErrorComponent, RefineThemes } from "@refinedev/antd";
 import routerProvider, { CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router";
-import { LoginPage } from "@activitypods/refine-antd";
+import { BackgroundChecks, LoginPage } from "@activitypods/refine-antd";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router";
 import { DashboardOutlined } from "@ant-design/icons";
 import { App as AntdApp, ConfigProvider } from "antd";
@@ -53,7 +53,9 @@ const App: React.FC = () => (
               element={
                 <Authenticated key="authenticated-routes" fallback={<CatchAllNavigate to="/login" />}>
                   <ThemedLayout>
-                    <Outlet />
+                    <BackgroundChecks>
+                      <Outlet />
+                    </BackgroundChecks>
                   </ThemedLayout>
                 </Authenticated>
               }
@@ -82,7 +84,9 @@ const App: React.FC = () => (
               element={
                 <Authenticated key="catch-all">
                   <ThemedLayout>
-                    <Outlet />
+                    <BackgroundChecks>
+                      <Outlet />
+                    </BackgroundChecks>
                   </ThemedLayout>
                 </Authenticated>
               }

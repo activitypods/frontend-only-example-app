@@ -4,16 +4,16 @@ A simple app that uses [Refine](https://refine.dev/core/) with the [ActivityPods
 
 ## No app backend required
 
-Unlike the typical ActivityPods app (see [Create Your First Social App](https://activitypods.org/docs/guides/create-your-first-social-app/)), this example doesn't need a Moleculer app backend. Everything an ActivityPods Pod provider needs to know about the app — its Solid-OIDC client metadata and which shape trees it needs access to — is just a small set of dereferenceable JSON-LD documents, served here as plain static files:
+Unlike the typical ActivityPods app (see [Create Your First Social App](https://activitypods.org/docs/guides/create-your-first-social-app/)), this example doesn't need a Moleculer app backend. The app and its access needs are declared in [`app-manifest.json`](./app-manifest.json), and [`@activitypods/app-manifest`](https://github.com/activitypods/activitypods/tree/master/app-framework/app-manifest) generates the documents read by the Pod provider:
 
-- [`public/app.json`](./public/app.json) — the app's "actor" description (OIDC client metadata + a pointer to the access needs below). This is also the Solid-OIDC `client_id`.
-- [`public/access-need-group.json`](./public/access-need-group.json) — the group of access needs requested (all required, for personal access).
-- [`public/access-need-note.json`](./public/access-need-note.json) — read/write on `as:Note` resources.
-- [`public/access-need-profile.json`](./public/access-need-profile.json) — read-only access to the user's own `as:Profile`, used by the dashboard.
+- `/app.json`: the app description. This URL is also the Solid-OIDC `client_id`.
+- `/access-needs/*.json`: the access needs and their groups.
 
-This works because the Pod provider fetches these documents directly (both for Solid-OIDC client validation and to compute what to grant) and, crucially, only tries to notify the app's own backend (over its ActivityPub inbox) if the app description declares one — ours doesn't, so nothing else is needed. The tradeoff: no real-time notifications, no access to other users' shared data (which requires a signing backend), and no server-side bookkeeping — none of which this example needs.
+To add an access need, run `npx app-manifest add`.
 
-These files hardcode `http://localhost:5173` (the dev server's port, pinned in `vite.config.ts`). If you change the port or deploy this app, update the URLs inside all four files (and `oidc:redirect_uris` etc.) to match, or point `VITE_CLIENT_ID` at your own hosted app description.
+The Pod provider only notifies the app's backend if the app description declares an inbox. Ours doesn't, so nothing else is needed. The tradeoff: no real-time notifications, no access to other users' shared data (which requires a signing backend), and no server-side bookkeeping — none of which this example needs.
+
+To deploy the app, set `PUBLIC_URL` to its URL when building, and serve the generated JSON files with the header `Access-Control-Allow-Origin: *` (for example with `serve -s dist --cors`).
 
 ## Prerequisites
 
